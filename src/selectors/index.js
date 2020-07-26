@@ -16,9 +16,6 @@ export const sortedPeoplesStr = (id, array, sorted) => {
 
 export const sortedPeoplesInt = (id, array,sorted) => {
 
-    console.log("SELECTOR INT");
-    console.log(id, array);
-
     if (sorted){
         //Inverse
         const sortByIntItem = R.sort(R.descend(R.prop(id)));
@@ -29,5 +26,11 @@ export const sortedPeoplesInt = (id, array,sorted) => {
     }
 
 
+};
+
+export const searchRecord = (itemStr, array) => {
+    const id = array.indexOf(itemStr);
+    const newArray = array[id];
+    return newArray
 };
 

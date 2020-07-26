@@ -5,7 +5,8 @@ import {
     FETCH_ALL_PEOPLE_START,
     FETCH_ALL_PEOPLE_SUCCESS,
     FETCH_ALL_PEOPLE_FAILURE,
-    SORT_PEOPLE
+    SORT_PEOPLE,
+    SEARCH_RECORD
 } from '../actionType'
 import {
     MIN_API_URL,
@@ -13,17 +14,17 @@ import {
 } from '../service/apiList'
 import {
     sortedPeoplesInt as sortedPeoplesIntSelector,
-    sortedPeoplesStr as sortedPeoplesStrSelector
+    sortedPeoplesStr as sortedPeoplesStrSelector,
+    searchRecord
 } from '../selectors'
 import {fetchPeople as fetchPeopleApi} from "../service";
-
 
 
 export const fetchPeople = () => async dispatch => {
     dispatch({
         type: FETCH_PEOPLE_START
     });
-    try{
+    try {
         const people = await fetchPeopleApi(MIN_API_URL);
         dispatch({
             type: FETCH_PEOPLE_SUCCESS,
@@ -32,7 +33,7 @@ export const fetchPeople = () => async dispatch => {
 
     } catch (e) {
         dispatch({
-            type:FETCH_PEOPLE_FAILURE,
+            type: FETCH_PEOPLE_FAILURE,
             paylaod: e,
             error: true
         })
@@ -69,7 +70,7 @@ export const sortedPeoplesInt = (id, array, sorted) => dispatch => {
             type: SORT_PEOPLE,
             payload: {newSortArr, sorted: false}
         });
-    } else{
+    } else {
         dispatch({
             type: SORT_PEOPLE,
             payload: {newSortArr, sorted: true}
@@ -78,7 +79,15 @@ export const sortedPeoplesInt = (id, array, sorted) => dispatch => {
 
 };
 
-
+export const findRecord = (text, array) => dispatch => {
+    console.log("find record");
+    console.log(text);
+    const record = searchRecord(text);
+    dispatch({
+        type: SEARCH_RECORD,
+        payload: {record}
+    })
+};
 
 
 // export const fetchAllPeople = () => async dispatch => {

@@ -1,11 +1,12 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
 
 
 import {
     fetchPeople,
     sortedPeoplesStr,
-    sortedPeoplesInt
+    sortedPeoplesInt,
+    findRecord
 } from '../../actions'
 
 import Person from '../../componetns/person'
@@ -17,7 +18,6 @@ class People extends Component {
 
     componentDidMount() {
         this.props.fetchPeople();
-        // this.props.fetchAllPeople();
     }
 
 
@@ -95,6 +95,22 @@ class People extends Component {
 
     };
 
+    handleChange(event) {
+        this.setState({"value": event.target.value});
+    }
+
+    searchRecord = () => {
+        const text = this.state.value;
+        const array = this.props.people;
+        console.log(array)
+        return (
+            <Fragment>
+                <input type="text" placeholder="Введите строку" value={this.state.value} onChange={e => this.handleChange(e)}/>
+                <button onClick={findRecord(text,array)}>Найти</button>
+            </Fragment>
+        )
+    };
+
 
     render() {
         const {people} = this.props.people;
@@ -106,9 +122,12 @@ class People extends Component {
 
 
         return (
-            //Person
+
             <div>
                 <div>
+                    <div>
+                        {this.searchRecord()}
+                    </div>
                     <table>
                         <tbody>
                         {this.renderCaption(result)}
@@ -135,7 +154,8 @@ const mapStateToProps = (state) => {
         people: people,
         sortedPeoplesStr: sortedPeoplesStr,
         sortedPeoplesInt: sortedPeoplesInt,
-        sorted: people.sorted
+        sorted: people.sorted,
+        findRecord: findRecord
 
     }
 };
@@ -143,7 +163,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     fetchPeople,
     sortedPeoplesStr,
-    sortedPeoplesInt
+    sortedPeoplesInt,
+    findRecord
 
 };
 
