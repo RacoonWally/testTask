@@ -80,12 +80,11 @@ export const sortedPeoplesInt = (id, array, sorted) => dispatch => {
 };
 
 export const findRecord = (text, array) => dispatch => {
-    console.log("find record");
-    console.log(text);
-    const record = searchRecord(text);
+    const people = array;
+    const record = searchRecord(text, array);
     dispatch({
         type: SEARCH_RECORD,
-        payload: {record}
+        payload: {record, people}
     })
 };
 

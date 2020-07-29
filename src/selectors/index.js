@@ -1,8 +1,7 @@
 import * as R from 'ramda'
 
+//Сортировка строковая
 export const sortedPeoplesStr = (id, array, sorted) => {
-    console.log("SELECTOR STR");
-    console.log(id, array);
     if (sorted){
         //Inverse
         const sortByNameCaseInsensitive = R.sort(R.descend(R.compose(R.toLower, R.prop(id))));
@@ -14,6 +13,7 @@ export const sortedPeoplesStr = (id, array, sorted) => {
 
 };
 
+//Сортировка числовая
 export const sortedPeoplesInt = (id, array,sorted) => {
 
     if (sorted){
@@ -28,9 +28,29 @@ export const sortedPeoplesInt = (id, array,sorted) => {
 
 };
 
+// Поиск записи
 export const searchRecord = (itemStr, array) => {
-    const id = array.indexOf(itemStr);
-    const newArray = array[id];
-    return newArray
+    const newArray = [];
+    if (itemStr ==="" || itemStr === undefined){
+        return array.people
+    }
+    for (let itemKey in array.people){
+        // Поиск по целой строке
+        // for (let itemName in array.people[itemKey]){
+        //     if (array.people[itemKey][itemName] === itemStr){
+        //         newArray.push(array.people[itemKey])
+        //     }
+        // }
+        for (let itemName in array.people[itemKey]){
+            let mainString = array.people[itemKey][itemName]+"";
+            if (mainString.indexOf(itemStr)>-1){
+                newArray.push(array.people[itemKey])
+            }
+        }
+    }
+    if (newArray.length !== 0){
+        return newArray
+    }
+    return array
 };
 

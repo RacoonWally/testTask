@@ -20,17 +20,12 @@ class People extends Component {
         this.props.fetchPeople();
     }
 
-
     getData = (item, clicked = false) => {
-
-        console.log(clicked);
         this.setState({"item": item});
         this.setState({"clicked": clicked});
-        console.log("clicked");
     };
 
     renderCaption = (array) => {
-
 
         const {sortedPeoplesInt, sortedPeoplesStr} = this.props;
         return (
@@ -102,22 +97,29 @@ class People extends Component {
     searchRecord = () => {
         const text = this.state.value;
         const array = this.props.people;
-        console.log(array)
+        const {findRecord} = this.props;
         return (
             <Fragment>
                 <input type="text" placeholder="Введите строку" value={this.state.value} onChange={e => this.handleChange(e)}/>
-                <button onClick={findRecord(text,array)}>Найти</button>
+                <button onClick={(e)=>{
+                    findRecord(text,array)
+                }}>Найти</button>
             </Fragment>
         )
     };
 
 
     render() {
-        const {people} = this.props.people;
-
+        const {people, findedPeople} = this.props.people;
         const result = [];
-        for (let key in people) {
-            result.push(people[key])
+        if (findedPeople !== undefined){
+            for (let key in findedPeople) {
+                result.push(findedPeople[key])
+            }
+        } else {
+            for (let key in people) {
+                result.push(people[key])
+            }
         }
 
 
@@ -149,14 +151,14 @@ class People extends Component {
 
 
 const mapStateToProps = (state) => {
-    const {people, sortedPeoplesStr, sortedPeoplesInt} = state;
+    const {people, sortedPeoplesStr, sortedPeoplesInt, findRecord, findedPeople} = state;
     return {
+        findedPeople:  findedPeople,
         people: people,
         sortedPeoplesStr: sortedPeoplesStr,
         sortedPeoplesInt: sortedPeoplesInt,
         sorted: people.sorted,
         findRecord: findRecord
-
     }
 };
 
@@ -165,7 +167,6 @@ const mapDispatchToProps = {
     sortedPeoplesStr,
     sortedPeoplesInt,
     findRecord
-
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(People);

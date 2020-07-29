@@ -11,12 +11,9 @@ const initialState = {
 };
 
 export default (state = initialState, {type, payload}) => {
-
-
     switch (type) {
         case FETCH_PEOPLE_SUCCESS:{
             return {
-
                 people: payload
             }
         }
@@ -27,12 +24,14 @@ export default (state = initialState, {type, payload}) => {
             }
         }
         case SEARCH_RECORD: {
+            console.log("state");
+            console.log(state);
             return {
-                people: payload
+                ...state,
+                findedPeople: payload.record
             }
+
         }
-
-
 
         default: return state
     }
