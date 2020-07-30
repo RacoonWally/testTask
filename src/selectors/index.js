@@ -14,8 +14,10 @@ export const sortedPeoplesStr = (id, array, sorted) => {
 };
 
 //Сортировка числовая
-export const sortedPeoplesInt = (id, array,sorted) => {
+export const sortedPeoplesInt = (id, array, sorted) => {
 
+    console.log("Sort");
+    console.log(array);
     if (sorted){
         //Inverse
         const sortByIntItem = R.sort(R.descend(R.prop(id)));
@@ -31,20 +33,22 @@ export const sortedPeoplesInt = (id, array,sorted) => {
 // Поиск записи
 export const searchRecord = (itemStr, array) => {
     const newArray = [];
-    if (itemStr ==="" || itemStr === undefined){
-        return array.people
+    if (itemStr === "" || itemStr === undefined){
+        return array
     }
-    for (let itemKey in array.people){
+    for (let itemKey in array){
+
         // Поиск по целой строке
         // for (let itemName in array.people[itemKey]){
         //     if (array.people[itemKey][itemName] === itemStr){
         //         newArray.push(array.people[itemKey])
         //     }
         // }
-        for (let itemName in array.people[itemKey]){
-            let mainString = array.people[itemKey][itemName]+"";
+        for (let itemName in array[itemKey]){
+
+            let mainString = array[itemKey][itemName]+"";
             if (mainString.indexOf(itemStr)>-1){
-                newArray.push(array.people[itemKey])
+                newArray.push(array[itemKey])
             }
         }
     }

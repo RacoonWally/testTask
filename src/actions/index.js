@@ -2,9 +2,6 @@ import {
     FETCH_PEOPLE_START,
     FETCH_PEOPLE_FAILURE,
     FETCH_PEOPLE_SUCCESS,
-    // FETCH_ALL_PEOPLE_START,
-    // FETCH_ALL_PEOPLE_SUCCESS,
-    // FETCH_ALL_PEOPLE_FAILURE,
     SORT_PEOPLE,
     SEARCH_RECORD,
     ADD_RECORD,
@@ -19,15 +16,17 @@ import {
 import {fetchPeople as fetchPeopleApi} from "../service";
 
 
-export const fetchPeople = (url) => async dispatch => {
+export const fetchPeople = (url, loading = false) => async dispatch => {
     dispatch({
-        type: FETCH_PEOPLE_START
+        type: FETCH_PEOPLE_START,
+        payload: !loading
     });
     try {
         const people = await fetchPeopleApi(url);
+
         dispatch({
             type: FETCH_PEOPLE_SUCCESS,
-            payload: people
+            payload: {people, loading}
         })
 
     } catch (e) {
@@ -88,7 +87,8 @@ export const findRecord = (text, array) => dispatch => {
 };
 
 
-export const addRecord = (array) => dispatch => {
+export const addRecord = (array) => (dispatch, getState) => {
+
     const people = array;
     dispatch({
         type: ADD_RECORD,
@@ -96,11 +96,11 @@ export const addRecord = (array) => dispatch => {
     })
 };
 
-export const loadNextPage = (curPage, array) => dispatch => {
-    const people = array;
-    const pageContent = calcPages(curPage, array);
-    dispatch({
-        type: GOES_TO_NEXT_PAGE,
-        payload: {pageContent, people}
-    })
-};
+// export const loadNextPage = (curPage, array) => dispatch => {
+//     const people = array;
+//     const pageContent = calcPages(curPage, array);
+//     dispatch({
+//         type: GOES_TO_NEXT_PAGE,
+//         payload: {pageContent, people}
+//     })
+// };

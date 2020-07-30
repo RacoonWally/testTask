@@ -9,7 +9,7 @@ class Person extends Component {
         return (
             <tr onClick={(e) => {
                 this.props.getData(this.props.data, true);
-            }}>
+            }} className="border">
                 <td>{id}</td>
                 <td>{firstName}</td>
                 <td>{lastName}</td>
