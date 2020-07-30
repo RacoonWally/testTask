@@ -6,6 +6,6 @@ import layout from "./layout";
 
 export default history => combineReducers({
     people,
-    layout,
+    // layout,
     router: connectRouter(history)
 });

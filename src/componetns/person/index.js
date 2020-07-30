@@ -20,6 +20,6 @@ class Person extends Component {
     }
 
 
-};
+}
 
 export default Person;

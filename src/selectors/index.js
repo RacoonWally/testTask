@@ -54,3 +54,18 @@ export const searchRecord = (itemStr, array) => {
     return array
 };
 
+
+export const calcPages = (curPage, array) => {
+    const offset = 30;
+    const endPoint = offset * curPage;
+    const startPoint = endPoint - offset;
+    const people = [];
+    for (let i = startPoint; i < endPoint; i++){
+        if (array[i] === undefined){
+            break
+        }
+        people.push(array[i])
+    }
+    return people
+};
+

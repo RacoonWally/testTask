@@ -2,17 +2,18 @@ import {
     FETCH_PEOPLE_SUCCESS,
     FETCH_ALL_PEOPLE_SUCCESS,
     SORT_PEOPLE,
-    SEARCH_RECORD
+    SEARCH_RECORD,
+    ADD_RECORD,
+    GOES_TO_NEXT_PAGE
 } from '../actionType'
 import * as R from 'ramda'
 
 
-const initialState = {
-};
+const initialState = {};
 
 export default (state = initialState, {type, payload}) => {
     switch (type) {
-        case FETCH_PEOPLE_SUCCESS:{
+        case FETCH_PEOPLE_SUCCESS: {
             return {
                 people: payload
             }
@@ -24,15 +25,32 @@ export default (state = initialState, {type, payload}) => {
             }
         }
         case SEARCH_RECORD: {
-            console.log("state");
-            console.log(state);
+
             return {
                 ...state,
                 findedPeople: payload.record
             }
+        }
+        case ADD_RECORD: {
+
+            return {
+                people: payload.people
+            }
+        }
+        case GOES_TO_NEXT_PAGE: {
+
+            console.log("reducer");
+            console.log(payload);
+            console.log(payload.people);
+
+            return {
+                ...state,
+                pageContent: payload.pageContent
+            }
 
         }
 
-        default: return state
+        default:
+            return state
     }
 }
