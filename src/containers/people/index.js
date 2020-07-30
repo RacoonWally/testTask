@@ -195,9 +195,7 @@ class People extends Component {
 
 
     render() {
-        console.log("this.props")
         const {loading} = this.props;
-        console.log(loading);
         const result = [];
         const {visionFlag} = this.state;
         // const {people, findedPeople, pageContent} = this.props.people;
